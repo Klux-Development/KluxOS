@@ -10,14 +10,14 @@ static uint32_t key_count = 0;
 static uint32_t next_key_id = 1;
 
 void crypto_init(void) {
-    terminal_writestring("Kriptografi modulu baslatiliyor...\n");
+    terminal_writestring("crypto init started\n");
     
     for (int i = 0; i < MAX_CRYPTO_KEYS; i++) {
         key_store[i] = NULL;
     }
     key_count = 0;
     
-    terminal_writestring("Kriptografi modulu baslatildi.\n");
+    terminal_writestring("crypto init completed\n");
 }
 
 static int crypto_xor_process(const void* input, void* output, size_t length, const uint8_t* key, size_t key_length) {
@@ -72,7 +72,7 @@ int crypto_encrypt(crypto_context_t* ctx, const void* input, void* output, size_
         case CRYPTO_AES:
         case CRYPTO_RSA:
             // İleride eklenecek
-            terminal_writestring("HATA: AES ve RSA henuz desteklenmiyor.\n");
+            terminal_writestring("ERROR: AES and RSA not supported yet.\n");
             return -2;
             
         default:
@@ -95,7 +95,7 @@ int crypto_decrypt(crypto_context_t* ctx, const void* input, void* output, size_
         case CRYPTO_AES:
         case CRYPTO_RSA:
             // İleride eklenecek
-            terminal_writestring("HATA: AES ve RSA henuz desteklenmiyor.\n");
+            terminal_writestring("ERROR: AES and RSA not supported yet.\n");
             return -2;
             
         default:
@@ -136,7 +136,7 @@ int crypto_hash(crypto_algorithm_t algorithm, const void* input, size_t length, 
     switch (algorithm) {
         case CRYPTO_SHA:
             // İleride eklenecek
-            terminal_writestring("UYARI: SHA henuz desteklenmiyor, basit hash kullaniliyor.\n");
+            terminal_writestring("WARNING: SHA not supported yet, using simple hash.\n");
             return crypto_simple_hash(input, length, hash);
             
         default:
