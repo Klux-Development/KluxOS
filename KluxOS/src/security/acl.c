@@ -4,13 +4,13 @@
 #include "../kernel/mm/memory.h"
 
 void security_init(void) {
-    terminal_writestring("Guvenlik modulu baslatiliyor...\n");
+    terminal_writestring("security init started\n");
 
-    terminal_writestring("Erisim kontrol listesi (ACL) baslatiliyor...\n");
+    terminal_writestring("access control list (ACL) init started\n");
     
-    terminal_writestring("Guvenlik denetim kaydi baslatiliyor...\n");
+    terminal_writestring("security audit log init started\n");
     
-    terminal_writestring("Guvenlik modulu baslatildi.\n");
+    terminal_writestring("security init completed\n");
 }
 
 
