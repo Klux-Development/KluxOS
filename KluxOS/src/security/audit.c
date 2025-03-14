@@ -8,25 +8,25 @@
 static audit_event_t* audit_logs = NULL;
 static uint32_t audit_count = 0;
 static uint32_t next_event_id = 1;
-static audit_level_t current_level = AUDIT_LEVEL_INFO; // Varsayılan olarak INFO seviyesi
+static audit_level_t current_level = AUDIT_LEVEL_INFO; 
 
 extern uint32_t get_tick_count(void);
 
 void audit_init(void) {
-    terminal_writestring("Denetim sistemi baslatiliyor...\n");
+    terminal_writestring("security audit init started\n");
     
     audit_logs = (audit_event_t*)kmalloc(sizeof(audit_event_t) * MAX_AUDIT_LOGS);
     if (!audit_logs) {
-        terminal_writestring("HATA: Denetim kayit tamponu icin bellek ayrilamadi!\n");
+        terminal_writestring("ERROR: audit log buffer not allocated!\n");
         return;
     }
     
     audit_count = 0;
     next_event_id = 1;
     
-    audit_log(AUDIT_SYSTEM_BOOT, AUDIT_LEVEL_INFO, 0, "Sistem baslatildi");
+    audit_log(AUDIT_SYSTEM_BOOT, AUDIT_LEVEL_INFO, 0, "system started");
     
-    terminal_writestring("Denetim sistemi baslatildi.\n");
+    terminal_writestring("security audit init completed\n");
 }
 
 void audit_set_level(audit_level_t level) {
@@ -34,23 +34,23 @@ void audit_set_level(audit_level_t level) {
         current_level = level;
         
         char buffer[64];
-        terminal_writestring("Denetim seviyesi ayarlandi: ");
+        terminal_writestring("audit level set to: ");
         
         switch(level) {
             case AUDIT_LEVEL_NONE:
-                terminal_writestring("NONE (Kapatildi)");
+                terminal_writestring("NONE (Disabled)");
                 break;
             case AUDIT_LEVEL_ERROR:
-                terminal_writestring("ERROR (Sadece hatalar)");
+                terminal_writestring("ERROR (Only errors)");
                 break;
             case AUDIT_LEVEL_WARNING:
-                terminal_writestring("WARNING (Hatalar ve uyarilar)");
+                terminal_writestring("WARNING (Errors and warnings)");
                 break;
             case AUDIT_LEVEL_INFO:
-                terminal_writestring("INFO (Bilgi, hatalar ve uyarilar)");
+                terminal_writestring("INFO (Information, errors and warnings)");
                 break;
             case AUDIT_LEVEL_VERBOSE:
-                terminal_writestring("VERBOSE (Tum olaylar)");
+                terminal_writestring("VERBOSE (All events)");
                 break;
         }
         
