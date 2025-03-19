@@ -29,4 +29,6 @@ We welcome your contributions. Please send a pull request for your suggestions o
 
 ---
 
+memory management bugs will be fixed in the next update.
+
 *KluxOS, v0.1.0*
